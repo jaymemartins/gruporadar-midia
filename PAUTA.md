@@ -32,3 +32,5 @@ Reescrita todo domingo pela rotina semanal. Formatos e horários: ver `ESTRATEGI
 | Sex 02/10 | Slide interno | foto | Porteiro atendendo na recepção de prédio (busca: "doorman building lobby") |
 | Sáb 03/10 | Story | ia | Corredor de condomínio vazio de madrugada, luz fria |
 | Dom 04/10 | Story | ia | Mão segurando celular com tela de mapa, fundo desfocado de portaria |
+
+Já gerado (26/09, teste): `posts/2026-09-28-ponto-no-posto/fotos/` → `capa.jpg` (mão com celular na entrada do condomínio, aprovada para a capa de segunda), `guarita.jpg` (guarita à noite, aprovada para o Story de domingo 27/09; copie para a pasta do dia), `chegada.jpg` (Pexels, **reprovada**: fora de contexto). Prévias em `previa-capa.jpg` e `previa-story.jpg`.

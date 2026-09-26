@@ -25,7 +25,7 @@ Imagens públicas: `https://raw.githubusercontent.com/jaymemartins/gruporadar-mi
    - Feed: segunda, quarta e sexta, conforme `PAUTA.md`. Se a pauta estiver vazia ou desatualizada, escolher pela grade da `ESTRATEGIA.md`, sem repetir tema dos últimos 6 posts de feed.
    - Se já houver post de feed publicado hoje (checar no Windsor), não publicar outro.
 3. **Imagens** (ver seção "Imagens" abaixo): toda peça de hoje leva imagem do mundo real — o Story, a capa do feed e 1–2 slides internos do carrossel. Escrever `pedidos/AAAA-MM-DD-slug.json` com `destino: "posts/AAAA-MM-DD-slug/fotos"` e rodar `python3 tools/pedir_imagens.py pedidos/AAAA-MM-DD-slug.json` (envia ao GitHub Actions e espera ~1–3 min).
-4. **Revisar cada imagem** que chegou, abrindo o JPEG com a ferramenta de leitura de imagem, antes de usar. Reprovar se tiver: mãos/rosto deformados, texto ou letreiro inventado, logotipo de outra marca, cena que não parece Brasil, pessoa em close com cara de IA, ou algo que destoe do tema. Reprovada → novo pedido com prompt ajustado, `seed` diferente ou, para foto, outro `indice` (máx. 2 novas tentativas). Se não houver imagem boa, usar o layout sem foto (é da marca e é válido) e anotar no `LOG.md`.
+4. **Revisar cada imagem** que chegou, abrindo o JPEG com a ferramenta de leitura de imagem, antes de usar. Reprovar se tiver: mãos/rosto deformados, texto ou letreiro inventado, logotipo de outra marca, cena que não parece Brasil, pessoa em close com cara de IA, ou algo que destoe do tema. Reprovada → novo pedido com prompt ajustado (mude enquadramento/luz/detalhe; não use `seed`, o Cloudflare recusa) ou, para foto, outro `indice` (máx. 2 novas tentativas). Se não houver imagem boa, usar o layout sem foto (é da marca e é válido) e anotar no `LOG.md`.
 5. **Produzir**: criar `posts/AAAA-MM-DD-slug/pecas.html` a partir de `templates/com-foto.html` (layouts A capa em tela cheia, B foto no topo, C foto em painel, D story) e de `templates/feed.html` / `templates/story.html` (sem foto). Imagens entram como `<img src="fotos/<nome>.jpg">`. Referência de carrossel: `posts/2026-09-26-sinais-ronda/`. Cada peça é um `<section class="rg-canvas" data-out="01">` (feed/carrossel 1080×1350) ou `rg-canvas--story` (1080×1920). Renderizar com `python3 tools/render.py posts/<pasta>/pecas.html`. Para Reel: quadros `data-out="r1"`, `r2`… em 9:16, depois `python3 tools/reel.py posts/<pasta> 2.5`.
 6. **Revisar de verdade**: abrir cada JPEG final e conferir contra o checklist abaixo; atenção especial ao contraste do texto sobre a foto (título sempre legível). O render avisa "ATENÇÃO overflow": isso bloqueia até corrigir.
 7. **Legenda** em `posts/<pasta>/legenda.txt` (hook na 1ª linha, CTA, até 5 hashtags).
@@ -61,12 +61,13 @@ Pedido:
 ```json
 {"destino": "posts/2026-09-28-ponto-no-posto/fotos",
  "imagens": [
-   {"nome": "capa", "fonte": "ia", "prompt": "…", "seed": 11},
+   {"nome": "capa", "fonte": "ia", "prompt": "…"},
    {"nome": "portaria", "fonte": "foto", "busca": "security guard building lobby", "orientacao": "portrait", "indice": 0}
  ]}
 ```
 
 - `fonte: "ia"` → Cloudflare Workers AI (FLUX). Use para **cenários e pessoas em plano médio/aberto**: de costas, de lado, em movimento, mãos segurando celular/tablet, silhuetas. Sai quadrada (1024×1024); o layout recorta.
+- Fotos do Pexels erram com frequência o contexto (a busca é por palavra): reprove sem dó e troque o `indice` ou a busca.
 - `fonte: "foto"` → Pexels (fotos reais, uso comercial livre). Use quando **o rosto aparece** ou quando o ambiente real convence mais (portaria, prédio, garagem, equipe). Busca em inglês. `creditos.json` traz alternativas se a primeira não servir (troque `indice`).
 
 Como escrever o prompt de IA (em inglês, sempre neste formato):
