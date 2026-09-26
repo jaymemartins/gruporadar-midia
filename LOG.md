@@ -4,7 +4,7 @@ Mais recente no topo. Uma linha por peça.
 
 | Data | Formato | Produto | Pilar | Tema / hook | CTA | media_id | Link |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-09-26 | Story | Radar Ronda | Chamada | "A ronda foi assinada. Mas aconteceu?" → post do feed | Veja o post no perfil | STORY_ID | — |
+| 2026-09-26 | Story | Radar Ronda | Chamada | "A ronda foi assinada. Mas aconteceu?" → post do feed | Veja o post no perfil | 17864816358674977 | — |
 | 2026-09-26 | Carrossel 8 | Radar Ronda | Dor + educação | 5 sinais de que a ronda do seu condomínio não está acontecendo | Comente o número / Mande RONDA no direct | 17983646205088159 | https://www.instagram.com/p/Ddwy_jnFitN/ |
 
 ## Histórico anterior (antes da rotina)
