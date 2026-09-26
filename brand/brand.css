@@ -1,0 +1,101 @@
+/* Grupo Radar Sistemas — marca para peças de Instagram. Fonte da verdade: Design System no Claude. */
+@font-face{font-family:Montserrat;font-weight:500;font-style:normal;src:url(fonts/montserrat-latin-500-normal.woff2) format('woff2');}
+@font-face{font-family:Montserrat;font-weight:500;font-style:normal;src:url(fonts/montserrat-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF;}
+@font-face{font-family:Montserrat;font-weight:600;font-style:normal;src:url(fonts/montserrat-latin-600-normal.woff2) format('woff2');}
+@font-face{font-family:Montserrat;font-weight:600;font-style:normal;src:url(fonts/montserrat-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF;}
+@font-face{font-family:Montserrat;font-weight:700;font-style:normal;src:url(fonts/montserrat-latin-700-normal.woff2) format('woff2');}
+@font-face{font-family:Montserrat;font-weight:700;font-style:normal;src:url(fonts/montserrat-latin-ext-700-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF;}
+@font-face{font-family:Montserrat;font-weight:800;font-style:normal;src:url(fonts/montserrat-latin-800-normal.woff2) format('woff2');}
+@font-face{font-family:Montserrat;font-weight:800;font-style:normal;src:url(fonts/montserrat-latin-ext-800-normal.woff2) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF;}
+:root{--navy-900:#06152A;--navy-800:#0A1B33;--navy-700:#0D223F;--lime:#8DFF3F;--on-lime:var(--navy-900);--white:#FFFFFF;--gray-300:#C7D0DA;--gray-400:#AAB5C2;--blue:#2F7BFF;--hairline:rgba(255,255,255,0.12);--lime-line:rgba(141,255,63,0.55);--space-1:8px;--space-2:16px;--space-3:24px;--space-4:32px;--space-6:48px;--space-8:64px;--margem-canvas:80px;--story-safe-top:250px;--story-safe-bottom:280px;--reel-safe-bottom:420px;--radius-sm:8px;--radius-md:16px;--radius-lg:28px;--radius-pill:999px;--glow-lime:0 0 32px rgba(141,255,63,0.35);--font-sans:Montserrat, "Helvetica Neue", Arial, sans-serif;}
+html,body{margin:0;background:#06152A}
+body{display:flex;flex-direction:column;gap:40px;align-items:flex-start}
+
+/* Grupo Radar Sistemas — peças de Instagram. Medidas no canvas real (1080px de largura). */
+
+.rg-canvas {
+  position: relative; overflow: hidden; box-sizing: border-box;
+  width: 1080px; height: 1350px;
+  padding: 120px var(--margem-canvas) 96px;
+  background: var(--navy-900); color: var(--white);
+  font-family: var(--font-sans);
+  display: flex; flex-direction: column;
+}
+.rg-canvas *, .rg-canvas *::before, .rg-canvas *::after { box-sizing: border-box; }
+.rg-canvas--story { height: 1920px; padding: calc(var(--story-safe-top) + 40px) var(--margem-canvas) calc(var(--story-safe-bottom) + 24px); }
+
+/* grade técnica sutil de fundo (opcional) */
+.rg-canvas--grid {
+  background-image:
+    linear-gradient(var(--hairline) 1px, transparent 1px),
+    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
+  background-size: 120px 120px; background-position: -1px -1px;
+  background-color: var(--navy-900);
+}
+.rg-canvas--grid::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, transparent 0%, var(--navy-900) 75%);
+}
+.rg-canvas > * { position: relative; }
+
+.rg-kicker { font-size: 24px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--lime); margin: 0 0 var(--space-3); display: flex; align-items: center; gap: var(--space-2); }
+.rg-kicker::before { content: ""; width: 48px; height: 3px; background: var(--lime); border-radius: 2px; }
+
+.rg-title { margin: 0; font-weight: 800; text-transform: uppercase; color: var(--white); font-size: 76px; line-height: 1.04; letter-spacing: -.01em; }
+.rg-title--story { font-size: 88px; line-height: 1.02; }
+.rg-hl { color: var(--lime); }
+
+.rg-sub { margin: var(--space-6) 0 0; font-size: 40px; line-height: 1.2; font-weight: 600; color: var(--gray-300); max-width: 860px; }
+.rg-body { margin: 0; font-size: 32px; line-height: 1.35; font-weight: 500; color: var(--gray-300); }
+.rg-num { font-size: 140px; line-height: 1; font-weight: 800; color: var(--lime); letter-spacing: -.02em; }
+
+.rg-closing { margin: 0; font-size: 44px; line-height: 1.15; font-weight: 700; color: var(--white); }
+
+/* Cards de evidência */
+.rg-evid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-top: auto; }
+.rg-card {
+  background: var(--navy-800); border: 2px solid var(--hairline); border-radius: var(--radius-md);
+  padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);
+}
+.rg-card--hl { border-color: var(--lime-line); }
+.rg-card__label { font-size: 24px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-400); display: flex; align-items: center; gap: var(--space-1); }
+.rg-card__value { font-size: 40px; font-weight: 700; line-height: 1.1; color: var(--white); }
+.rg-card__value--ok { color: var(--lime); }
+.rg-card__meta { font-size: 24px; font-weight: 600; color: var(--gray-400); }
+.rg-icon { width: 36px; height: 36px; stroke: var(--lime); fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+
+.rg-photo { height: 180px; border-radius: var(--radius-sm); background:
+  linear-gradient(135deg, var(--navy-700), var(--navy-800)); border: 2px solid var(--hairline); position: relative; }
+.rg-photo::after { content: ""; position: absolute; left: 50%; top: 50%; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; border: 3px solid var(--gray-400); }
+
+/* Mapa com geofence e pino */
+.rg-map { position: relative; height: 360px; border-radius: var(--radius-lg); background: var(--navy-700); overflow: hidden; border: 2px solid var(--hairline);
+  background-image: linear-gradient(var(--hairline) 2px, transparent 2px), linear-gradient(90deg, var(--hairline) 2px, transparent 2px); background-size: 90px 90px; }
+.rg-map__fence { position: absolute; width: 260px; height: 260px; border-radius: 50%; border: 3px dashed var(--lime-line); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.rg-map__pin { position: absolute; width: 28px; height: 28px; border-radius: 50%; background: var(--lime); box-shadow: var(--glow-lime); left: 50%; top: 50%; transform: translate(-50%, -50%); }
+.rg-map__route { position: absolute; inset: 0; }
+.rg-map__route path { fill: none; stroke: var(--blue); stroke-width: 4; stroke-dasharray: 10 10; }
+
+/* Fechamento + assinatura */
+.rg-foot { margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-6); }
+.rg-sign { display: flex; align-items: center; gap: var(--space-3); font-size: 24px; font-weight: 600; letter-spacing: .04em; color: var(--gray-400); white-space: nowrap; }
+.rg-sign::before, .rg-sign::after { content: ""; flex: 1; height: 2px; background: var(--lime-line); }
+.rg-sign b { color: var(--white); font-weight: 700; }
+.rg-sign i { font-style: normal; color: var(--lime); }
+
+.rg-cta { align-self: flex-start; display: inline-flex; align-items: center; gap: var(--space-2); padding: 20px 36px; border-radius: var(--radius-pill); background: var(--lime); color: var(--on-lime); font-size: 30px; font-weight: 800; }
+.rg-cta--ghost { background: transparent; color: var(--lime); border: 3px solid var(--lime); }
+
+/* Carrossel */
+.rg-page { position: absolute; top: 56px; right: var(--margem-canvas); font-size: 24px; font-weight: 700; color: var(--gray-400); letter-spacing: .08em; }
+.rg-swipe { display: inline-flex; align-items: center; gap: var(--space-2); font-size: 28px; font-weight: 700; color: var(--lime); text-transform: uppercase; letter-spacing: .06em; }
+.rg-list { list-style: none; margin: var(--space-6) 0 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-4); }
+.rg-list li { display: flex; gap: var(--space-3); align-items: flex-start; font-size: 44px; line-height: 1.25; font-weight: 600; color: var(--white); }
+.rg-list li::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 16px; border-radius: 4px; background: var(--lime); }
+
+
+/* Marca do produto na assinatura */
+.rg-sign__mark { width: 56px; height: 56px; object-fit: contain; flex: none; }
+.rg-sign > span { display: inline-flex; align-items: center; gap: 12px; }
+.rg-sign::before, .rg-sign::after { min-width: 40px; }
+.rg-canvas > * { flex-shrink: 0; }
