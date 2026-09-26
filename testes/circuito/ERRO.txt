@@ -1,2 +1,0 @@
-cena-ia: segredos CF_ACCOUNT_ID/CF_API_TOKEN ausentes
-foto-real: segredo PEXELS_API_KEY ausente

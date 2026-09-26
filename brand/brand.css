@@ -99,3 +99,31 @@ body{display:flex;flex-direction:column;gap:40px;align-items:flex-start}
 .rg-sign > span { display: inline-flex; align-items: center; gap: 12px; }
 .rg-sign::before, .rg-sign::after { min-width: 40px; }
 .rg-canvas > * { flex-shrink: 0; }
+
+/* ===== Layouts com foto =====
+   A foto nunca carrega texto: título, cards e assinatura vêm sempre por cima, pela marca.
+   .rg-foto        imagem de fundo em tela cheia (capa de carrossel, story, post de impacto)
+   .rg-foto--topo  imagem só na metade de cima, texto embaixo sobre o navy
+   .rg-painel-foto foto dentro de um card arredondado (slide interno, prova)
+   Tratamento de cor: dessatura levemente e puxa para o navy, para toda foto parecer da mesma marca. */
+.rg-foto { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.rg-foto img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.78) contrast(1.06) brightness(.92); }
+.rg-foto::after { content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(180deg, rgba(6,21,42,.92) 0%, rgba(6,21,42,.55) 28%, rgba(6,21,42,.25) 50%, rgba(6,21,42,.70) 72%, rgba(6,21,42,.97) 90%),
+    linear-gradient(0deg, rgba(13,34,63,.35), rgba(13,34,63,.35)); }
+.rg-foto--topo { bottom: auto; height: 62%; }
+.rg-foto--topo::after { background:
+    linear-gradient(180deg, rgba(6,21,42,.80) 0%, rgba(6,21,42,.15) 30%, rgba(6,21,42,.25) 65%, rgba(6,21,42,1) 100%),
+    linear-gradient(0deg, rgba(13,34,63,.30), rgba(13,34,63,.30)); }
+.rg-foto--foco-baixo img { object-position: center 70%; }
+.rg-foto--foco-cima img { object-position: center 25%; }
+.rg-canvas > .rg-foto ~ * { z-index: 1; }
+.rg-painel-foto { position: relative; border-radius: var(--radius-lg); overflow: hidden; border: 2px solid var(--hairline); }
+.rg-painel-foto img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.8) contrast(1.05); }
+.rg-painel-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(6,21,42,.75)); }
+.rg-painel-foto .rg-chip { position: absolute; left: 24px; bottom: 24px; z-index: 1; }
+.rg-chip { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: var(--radius-pill);
+  background: rgba(6,21,42,.82); border: 2px solid var(--lime-line); color: var(--white); font-size: 26px; font-weight: 700; }
+.rg-chip .rg-icon { width: 30px; height: 30px; }
+.rg-sombra-texto { text-shadow: 0 2px 24px rgba(6,21,42,.85); }

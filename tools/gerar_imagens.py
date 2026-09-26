@@ -56,6 +56,8 @@ def main():
     for p in pedidos:
         ped = json.load(open(p))
         dest = pathlib.Path(ped["destino"]); dest.mkdir(parents=True, exist_ok=True)
+        for velho in ("creditos.json", "ERRO.txt"):
+            (dest / velho).unlink(missing_ok=True)
         creditos, erros = {}, []
         for item in ped["imagens"]:
             try:

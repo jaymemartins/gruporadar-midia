@@ -15,3 +15,20 @@ Reescrita todo domingo pela rotina semanal. Formatos e horários: ver `ESTRATEGI
 | Sex 02/10 | Story | Grupo | Chamada | "Checklist novo no feed: salve para usar amanhã." | Veja no feed |
 | Sáb 03/10 | Story | Grupo | Posicionamento | "Controle não é confiar. É comprovar." | — |
 | Dom 04/10 | Story | Radar Ponto | Pergunta | "Quanto tempo sua equipe leva para fechar o ponto do mês?" | Responda este story |
+
+## Cenas de imagem sugeridas
+
+| Dia | Peça | Fonte | Cena |
+| --- | --- | --- | --- |
+| Dom 27/09 | Story | ia | Guarita de condomínio iluminada à noite, vista de fora, rua vazia |
+| Seg 28/09 | Capa do carrossel | ia | Mão segurando celular com câmera frontal aberta na entrada de um prédio, amanhecer |
+| Seg 28/09 | Slide interno | foto | Colaboradora de limpeza uniformizada chegando ao trabalho (busca: "cleaning staff arriving work building") |
+| Seg 28/09 | Story | ia | Relógio de ponto de parede antigo em corredor de serviço |
+| Ter 29/09 | Story | ia | Troca de turno: dois vigilantes de costas na portaria, luz do fim de tarde |
+| Qua 30/09 | Quadro 1 do Reel | ia | Portaria vazia de madrugada, cadeira sem ninguém, monitor ligado |
+| Qua 30/09 | Story | foto | Supervisor olhando o celular preocupado (busca: "manager looking at phone worried night") |
+| Qui 01/10 | Story | ia | Vigilante de costas com lanterna percorrendo garagem de condomínio à noite |
+| Sex 02/10 | Capa do carrossel | ia | Balcão de portaria com livro de ocorrências aberto e caneta, luz quente |
+| Sex 02/10 | Slide interno | foto | Porteiro atendendo na recepção de prédio (busca: "doorman building lobby") |
+| Sáb 03/10 | Story | ia | Corredor de condomínio vazio de madrugada, luz fria |
+| Dom 04/10 | Story | ia | Mão segurando celular com tela de mapa, fundo desfocado de portaria |
