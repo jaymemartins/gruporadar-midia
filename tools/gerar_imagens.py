@@ -7,12 +7,14 @@ Pedido (pedidos/<slug>.json):
   "imagens": [
     {"nome": "cena", "fonte": "ia", "prompt": "...", "modelo": "@cf/black-forest-labs/flux-1-schnell"},
     {"nome": "portaria", "fonte": "foto", "busca": "security guard building lobby", "orientacao": "portrait"},
-    {"nome": "arte-pronta", "fonte": "base64", "conteudo": "<BASE64 JPEG>"}
+    {"nome": "arte-pronta", "fonte": "base64", "conteudo": "<BASE64 JPEG>"},
+    {"nome": "arte-pronta", "fonte": "base64_chunks", "arquivos": ["pedidos/chunks/a.txt", "pedidos/chunks/b.txt"]}
   ]
 }
-fonte "ia"     -> Cloudflare Workers AI (FLUX), segredos CF_ACCOUNT_ID e CF_API_TOKEN
-fonte "foto"   -> Pexels (fotos reais, uso comercial livre), segredo PEXELS_API_KEY
-fonte "base64" -> JPEG pronto enviado em base64; apenas decodifica e grava, sem recompressão
+fonte "ia"            -> Cloudflare Workers AI (FLUX), segredos CF_ACCOUNT_ID e CF_API_TOKEN
+fonte "foto"          -> Pexels (fotos reais, uso comercial livre), segredo PEXELS_API_KEY
+fonte "base64"        -> JPEG pronto enviado em base64; apenas decodifica e grava, sem recompressão
+fonte "base64_chunks" -> concatena arquivos de texto com base64, decodifica e grava, sem recompressão
 Resultado: <destino>/<nome>.jpg e <destino>/creditos.json. O pedido vai para pedidos/feitos/.
 Erros ficam em <destino>/ERRO.txt (a rotina lê e decide).
 """
@@ -59,8 +61,8 @@ def baixar_foto(item):
     return img, {"fonte": "Pexels", "fotografo": f["photographer"], "url": f["url"], "busca": item["busca"],
                  "alternativas": [x["url"] for x in fotos[:6]]}
 
-def decodificar_base64(item):
-    conteudo = (item.get("conteudo") or "").strip()
+def _decode(conteudo, fonte):
+    conteudo = (conteudo or "").strip()
     if not conteudo:
         raise RuntimeError("conteudo base64 ausente")
     if conteudo.startswith("data:"):
@@ -71,7 +73,22 @@ def decodificar_base64(item):
         raise RuntimeError(f"base64 inválido: {e}") from None
     if len(img) < 4:
         raise RuntimeError("imagem base64 vazia ou inválida")
-    return img, {"fonte": "Upload base64", "bytes": len(img)}
+    return img, {"fonte": fonte, "bytes": len(img)}
+
+def decodificar_base64(item):
+    return _decode(item.get("conteudo"), "Upload base64")
+
+def decodificar_base64_chunks(item):
+    arquivos = item.get("arquivos") or []
+    if not arquivos:
+        raise RuntimeError("lista de chunks ausente")
+    partes = []
+    for arq in arquivos:
+        p = pathlib.Path(arq)
+        if not p.exists():
+            raise RuntimeError(f"chunk não encontrado: {arq}")
+        partes.append(p.read_text().strip())
+    return _decode("".join(partes), "Upload base64 em chunks")
 
 def main():
     pedidos = sorted(glob.glob("pedidos/*.json"))
@@ -92,6 +109,8 @@ def main():
                     img, meta = baixar_foto(item)
                 elif fonte == "base64":
                     img, meta = decodificar_base64(item)
+                elif fonte == "base64_chunks":
+                    img, meta = decodificar_base64_chunks(item)
                 else:
                     raise RuntimeError(f"fonte desconhecida: {fonte}")
                 (dest / f"{item['nome']}.jpg").write_bytes(img)
