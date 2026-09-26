@@ -14,14 +14,22 @@ fonte "foto" -> Pexels (fotos reais, uso comercial livre), segredo PEXELS_API_KE
 Resultado: <destino>/<nome>.jpg e <destino>/creditos.json. O pedido vai para pedidos/feitos/.
 Erros ficam em <destino>/ERRO.txt (a rotina lê e decide).
 """
-import base64, glob, json, os, pathlib, shutil, sys, urllib.parse, urllib.request
+import base64, glob, json, os, pathlib, shutil, sys, urllib.error, urllib.parse, urllib.request
 
-CF_ID, CF_TOKEN, PEXELS = os.getenv("CF_ACCOUNT_ID"), os.getenv("CF_API_TOKEN"), os.getenv("PEXELS_API_KEY")
+CF_ID, CF_TOKEN, PEXELS = [(os.getenv(k) or "").strip() or None for k in ("CF_ACCOUNT_ID", "CF_API_TOKEN", "PEXELS_API_KEY")]
+
+UA = "Mozilla/5.0 (X11; Linux x86_64) gruporadar-midia/1.0"
 
 def http(url, data=None, headers=None, timeout=120):
-    req = urllib.request.Request(url, data=data, headers=headers or {})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+    h = {"User-Agent": UA, **(headers or {})}
+    req = urllib.request.Request(url, data=data, headers=h)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            return r.read()
+    except urllib.error.HTTPError as e:
+        corpo = e.read()[:400].decode("utf-8", "replace")
+        host = urllib.parse.urlparse(url).netloc
+        raise RuntimeError(f"HTTP {e.code} em {host}: {corpo}") from None
 
 def gerar_ia(item):
     if not (CF_ID and CF_TOKEN):
@@ -45,7 +53,7 @@ def baixar_foto(item):
     if not fotos:
         raise RuntimeError(f"Pexels: nada para '{item['busca']}'")
     f = fotos[min(item.get("indice", 0), len(fotos) - 1)]
-    img = http(f["src"]["large2x"], headers={"User-Agent": "gruporadar-midia"})
+    img = http(f["src"]["large2x"])
     return img, {"fonte": "Pexels", "fotografo": f["photographer"], "url": f["url"], "busca": item["busca"],
                  "alternativas": [x["url"] for x in fotos[:6]]}
 
