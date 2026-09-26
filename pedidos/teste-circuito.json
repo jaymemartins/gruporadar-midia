@@ -1,0 +1,7 @@
+{
+  "destino": "testes/circuito",
+  "imagens": [
+    {"nome": "cena-ia", "fonte": "ia", "prompt": "Editorial documentary photograph, security guard walking a night patrol in a Brazilian residential condominium parking garage, seen from behind, flashlight, sodium lights, 35mm, realistic, no text"},
+    {"nome": "foto-real", "fonte": "foto", "busca": "security guard night building", "orientacao": "portrait"}
+  ]
+}
